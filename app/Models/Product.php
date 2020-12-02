@@ -9,6 +9,15 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('stock', function ($query) {
+            return $query->where('quantity', '>', 0);
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +27,8 @@ class Product extends Model
         'name',
         'description',
         'quantity',
-        'user_id'
+        'user_id',
+        'status'
     ];
 
     /**

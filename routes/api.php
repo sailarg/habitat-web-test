@@ -21,3 +21,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', [AuthController::class, 'logout'])
         ->middleware('auth:api');
 });
+
+Route::group(['middleware' => ['auth:api']], function () {
+    require(__DIR__ . '/api/base.php');
+});
